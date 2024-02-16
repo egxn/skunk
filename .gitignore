@@ -1,3 +1,5 @@
 .env
 roi_*
 results*
+/skunk-back/target
+/skunk-back/test*
