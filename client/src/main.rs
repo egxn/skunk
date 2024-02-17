@@ -37,10 +37,6 @@ fn get_file_path () -> Result<String, Box<dyn std::error::Error>> {
     Ok(path.to_string())
 }
 
-async fn root() -> &'static str {
-    "Skunk!"
-}
-
 fn get_file_list(path: &str)  -> String {
     let dir = std::fs::read_dir(path)
         .unwrap();
@@ -67,10 +63,10 @@ async fn main() {
             let path = format!("/{}", stem);
             let meta = format!("/{}-meta", stem);
             let app = Router::new()
-                .route("/", get(root))
                 .route(meta.as_str(), get(get_file_list(stem)))
-                .nest(path.as_str(), axum_static::static_router(stem));
-
+                .nest(path.as_str(), axum_static::static_router(stem))
+                .nest("/sknk", axum_static::static_router("static"));
+    
             axum::Server::bind(&"0.0.0.0:3000".parse().unwrap())
                 .serve(app.into_make_service())
                 .await

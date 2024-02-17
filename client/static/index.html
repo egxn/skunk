@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Skunk</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script>
+        const getFileList = async () => {
+            const response = await fetch(`/hunter23-meta`)
+            const data = await response.json()
+            return data
+        }
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('onload')
+            const body = document.getElementById('page')
+            const files = await getFileList()
+            const nav = {
+                current: 0,
+                total: files.length,
+            }
+
+            const page = document.createElement('img');
+            page.src = `/${files[nav.current]}`;
+            body.appendChild(page);
+        })
+    </script>
+</head>
+<body>
+    <h1>Skunk</h1>
+    <div id='page'></div>
+</body>
+</html>
