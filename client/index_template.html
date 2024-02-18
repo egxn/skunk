@@ -5,14 +5,14 @@
     <title>Skunk</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <script>
+        const file = `{{FILE}}`;
         const getFileList = async () => {
-            const response = await fetch(`/hunter23-meta`)
+            const response = await fetch(`/${file}-meta`)
             const data = await response.json()
             return data
         }
 
         document.addEventListener('DOMContentLoaded', async function() {
-            console.log('onload')
             const body = document.getElementById('page')
             const files = await getFileList()
             const nav = {
@@ -25,9 +25,25 @@
             body.appendChild(page);
         })
     </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        #page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
 </head>
 <body>
-    <h1>Skunk</h1>
     <div id='page'></div>
 </body>
 </html>
